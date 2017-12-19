@@ -6,8 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 import solid.humank.utils.DateTimeUtil;
 
-import java.util.Date;
-
 import static org.junit.Assert.assertEquals;
 
 public class CollectionTest {
