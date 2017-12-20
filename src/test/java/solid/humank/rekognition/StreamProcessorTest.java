@@ -1,9 +1,6 @@
 package solid.humank.rekognition;
 
-import com.amazonaws.services.rekognition.AmazonRekognitionClient;
-import com.amazonaws.services.rekognition.model.KinesisVideoStream;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class StreamProcessorTest {
@@ -15,15 +12,12 @@ public class StreamProcessorTest {
     private String collectionId;
     private float matchThreshold;
 
-    private AmazonRekognitionClient rekognitionClient;
-
-
     @Test
     public void create_stream_processor_test(){
 
-
         KinesisStreamService kinesisStreamService = new KinesisStreamService();
-        String createdProcessorArn = kinesisStreamService.createVideoStreamProcessor(kinesisVideoStreamArn, kinesisDataStreamArn, collectionId, matchThreshold, roleArn, streamProcessorName);
+        String createdProcessorArn =
+                kinesisStreamService.createVideoStreamProcessor(kinesisVideoStreamArn, kinesisDataStreamArn, collectionId, matchThreshold, roleArn, streamProcessorName);
         assertNotNull(createdProcessorArn);
     }
 
