@@ -35,7 +35,7 @@ public class IndexFacesTest {
     }
 
     private void createCollection(){
-        CollectionController cc = new CollectionController();
+        CollectionService cc = new CollectionService();
         String creationResult = cc.createCollectionAt(Regions.US_WEST_2,collectionId);
 
     }

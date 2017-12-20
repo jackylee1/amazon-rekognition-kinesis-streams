@@ -22,7 +22,7 @@ public class CollectionTest {
     @Test
     public void create_collection_on_us_west_2_region(){
 
-        CollectionController cc = new CollectionController();
+        CollectionService cc = new CollectionService();
         String creationResult = cc.createCollectionAt(Regions.US_WEST_2,collectionId);
 
         assertEquals("200",creationResult);
@@ -31,7 +31,7 @@ public class CollectionTest {
 
     @After
     public void delete_collection_on_us_west_2_region(){
-        CollectionController cc = new CollectionController();
+        CollectionService cc = new CollectionService();
         String deletionResult = cc.deleteCollection(Regions.US_WEST_2,collectionId);
         assertEquals("200",deletionResult);
     }

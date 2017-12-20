@@ -11,7 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import solid.humank.utils.AmazonClientUtil;
 
-public class CollectionController {
+public class CollectionService {
 
     private static final Logger logger = LogManager.getLogger();
 
