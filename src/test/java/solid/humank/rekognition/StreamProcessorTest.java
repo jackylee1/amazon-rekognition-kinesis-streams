@@ -6,9 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class StreamProcessorTest {
 
     private String streamProcessorName;
-    private String kinesisVideoStreamArn;
-    private String kinesisDataStreamArn;
-    private String roleArn;
+    private String kinesisVideoStreamArn = "arn:aws:kinesisvideo:us-west-2:584518143473:stream/MyKinesisVideoStream/1513753760664";
+    private String kinesisDataStreamArn = "arn:aws:kinesis:us-west-2:584518143473:stream/MyKinesisDataStream";
+    private String roleArn = "arn:aws:iam::584518143473:role/rekognition-role";
     private String collectionId;
     private float matchThreshold;
 
