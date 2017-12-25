@@ -10,7 +10,7 @@ import solid.humank.utils.AmazonClientUtil;
 
 import java.util.List;
 
-public class IndexFaces {
+public class IndexFaceService {
 
     private static final Logger logger = LogManager.getLogger();
 
