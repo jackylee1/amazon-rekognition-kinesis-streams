@@ -1,4 +1,4 @@
-package solid.humank.rekognition;
+package solid.humank.service;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.regions.Regions;

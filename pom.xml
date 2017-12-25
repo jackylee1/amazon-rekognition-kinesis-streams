@@ -51,13 +51,13 @@
             <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- Only required to run tests in an IDE that bundles an older version -->
-        <dependency>
-            <groupId>org.junit.vintage</groupId>
-            <artifactId>junit-vintage-engine</artifactId>
-            <version>${junit.vintage.version}</version>
-            <scope>test</scope>
-        </dependency>
+        <!--&lt;!&ndash; Only required to run tests in an IDE that bundles an older version &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.junit.vintage</groupId>-->
+            <!--<artifactId>junit-vintage-engine</artifactId>-->
+            <!--<version>${junit.vintage.version}</version>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
         <!-- To avoid compiler warnings about @API annotations in JUnit code -->
         <dependency>
             <groupId>org.apiguardian</groupId>

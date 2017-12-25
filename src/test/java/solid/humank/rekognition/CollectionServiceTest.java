@@ -3,12 +3,13 @@ package solid.humank.rekognition;
 import com.amazonaws.regions.Regions;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import solid.humank.service.CollectionService;
 import solid.humank.utils.DateTimeUtil;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CollectionServiceTest {
 

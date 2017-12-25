@@ -4,10 +4,11 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.rekognition.model.FaceRecord;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import solid.humank.service.CollectionService;
+import solid.humank.service.IndexFaceService;
 import solid.humank.utils.DateTimeUtil;
 
 import java.util.List;
@@ -47,7 +48,7 @@ public class IndexFacesServiceTest {
     public void deleteCollection(){
         CollectionService cc = new CollectionService();
         String deletionResult = cc.deleteCollection(Regions.US_WEST_2,collectionId);
-        Assert.assertEquals("200",deletionResult);
+        assertEquals("200",deletionResult);
     }
 
 }
