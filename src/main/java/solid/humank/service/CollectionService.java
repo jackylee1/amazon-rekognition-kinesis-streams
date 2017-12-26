@@ -17,8 +17,8 @@ public class CollectionService {
 
     public String createCollectionAt(Regions region, String collectionId) {
 
-        AWSCredentials credentials =  AmazonClientUtil.generateCredentials();
-        AmazonRekognition amazonRekognition = AmazonClientUtil.getAmazonRekognition(region, credentials);
+
+        AmazonRekognition amazonRekognition = AmazonClientUtil.getAmazonRekognition();
 
         logger.info("Creating collection: {}" ,collectionId );
 
@@ -35,8 +35,7 @@ public class CollectionService {
 
     public String deleteCollection(Regions region, String collectionId){
 
-        AWSCredentials credentials =  AmazonClientUtil.generateCredentials();
-        AmazonRekognition amazonRekognition = AmazonClientUtil.getAmazonRekognition(region, credentials);
+        AmazonRekognition amazonRekognition = AmazonClientUtil.getAmazonRekognition();
 
         DeleteCollectionRequest request = new DeleteCollectionRequest()
                 .withCollectionId(collectionId);

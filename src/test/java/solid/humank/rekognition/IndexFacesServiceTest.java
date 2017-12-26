@@ -39,7 +39,7 @@ public class IndexFacesServiceTest {
         String creationResult = cc.createCollectionAt(Regions.US_WEST_2,collectionId);
 
         IndexFaceService indexFaceService = new IndexFaceService();
-        List<FaceRecord> faceRecords = indexFaceService.indexFaceFor(Regions.US_WEST_2, collectionId, s3BucketName, fileName);
+        List<FaceRecord> faceRecords = indexFaceService.indexFaceFor(collectionId, s3BucketName, fileName);
 
         assertEquals(1, faceRecords.size());
     }

@@ -18,8 +18,7 @@ public class RekognitionService {
 
     public String createVideoStreamProcessor(String kinesisVideoStreamArn, String kinesisDataStreamArn, String collectionId, float matchThreshold, String roleArn, String streamProcessorName ){
 
-        AWSCredentials credentials=  AmazonClientUtil.generateCredentials();
-        AmazonRekognition amazonRekognition =  AmazonClientUtil.getAmazonRekognition(Regions.US_WEST_2,credentials);
+        AmazonRekognition amazonRekognition =  AmazonClientUtil.getAmazonRekognition();
 
         KinesisVideoStream kinesisVideoStream = new KinesisVideoStream().withArn(kinesisVideoStreamArn);
         StreamProcessorInput streamProcessorInput =
@@ -32,7 +31,6 @@ public class RekognitionService {
         StreamProcessorSettings streamProcessorSettings =
                 new StreamProcessorSettings().withFaceSearch(faceSearchSettings);
 
-
         CreateStreamProcessorResult createStreamProcessorResult = amazonRekognition.createStreamProcessor(
                 new CreateStreamProcessorRequest().withInput(streamProcessorInput).withOutput(streamProcessorOutput)
                         .withSettings(streamProcessorSettings).withRoleArn(roleArn).withName(streamProcessorName));
@@ -42,8 +40,7 @@ public class RekognitionService {
 
     public String compareWithIndexedFacesForIncomingBuddy(String s3bucketName, String fileName, String collectionId) {
 
-        AWSCredentials credentials=  AmazonClientUtil.generateCredentials();
-        AmazonRekognition amazonRekognition =  AmazonClientUtil.getAmazonRekognition(Regions.US_WEST_2,credentials);
+        AmazonRekognition amazonRekognition =  AmazonClientUtil.getAmazonRekognition();
 
         StringBuffer resultStringBuffer = new StringBuffer();
 
@@ -55,19 +52,24 @@ public class RekognitionService {
                         .withBucket(s3bucketName)
                         .withName(fileName));
 
+        logger.info(image.toString());
+
         // Search collection for faces similar to the largest face in the image.
         SearchFacesByImageRequest searchFacesByImageRequest = new SearchFacesByImageRequest()
                 .withCollectionId(collectionId)
                 .withImage(image)
                 .withFaceMatchThreshold(70F)
-                .withMaxFaces(2);
+                .withMaxFaces(100);
+
+        logger.info(searchFacesByImageRequest.toString());
 
         SearchFacesByImageResult searchFacesByImageResult =
                 amazonRekognition.searchFacesByImage(searchFacesByImageRequest);
 
         logger.info("Faces matching largest face in image from" + fileName);
         List< FaceMatch > faceImageMatches = searchFacesByImageResult.getFaceMatches();
-
+        logger.info("MatchResult : {}", searchFacesByImageResult);
+        logger.info("check face is matched or not : {}", faceImageMatches.size());
 
         for (FaceMatch face: faceImageMatches) {
             try {
@@ -81,8 +83,7 @@ public class RekognitionService {
     }
 
     public String startStreamProcessor(String streamProcessorName) {
-        AWSCredentials credentials=  AmazonClientUtil.generateCredentials();
-        AmazonRekognition rekognitionClient =  AmazonClientUtil.getAmazonRekognition(Regions.US_WEST_2,credentials);
+        AmazonRekognition rekognitionClient =  AmazonClientUtil.getAmazonRekognition();
         StartStreamProcessorResult startStreamProcessorResult =
                 rekognitionClient.startStreamProcessor(new StartStreamProcessorRequest().withName(streamProcessorName));
         logger.info("{}", startStreamProcessorResult.getSdkResponseMetadata().toString());

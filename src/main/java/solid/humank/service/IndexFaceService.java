@@ -7,6 +7,7 @@ import com.amazonaws.services.rekognition.model.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import solid.humank.utils.AmazonClientUtil;
+import solid.humank.utils.ResourceProperties;
 
 import java.util.List;
 
@@ -14,10 +15,9 @@ public class IndexFaceService {
 
     private static final Logger logger = LogManager.getLogger();
 
-    public List<FaceRecord> indexFaceFor(Regions region, String collectionId, String s3BucketName, String fileName) {
+    public List<FaceRecord> indexFaceFor(String collectionId, String s3BucketName, String fileName) {
 
-        AWSCredentials awsCredentials = AmazonClientUtil.generateCredentials();
-        AmazonRekognition amazonRekognition = AmazonClientUtil.getAmazonRekognition(region,awsCredentials);
+        AmazonRekognition amazonRekognition = AmazonClientUtil.getAmazonRekognition();
 
         Image image=new Image()
                 .withS3Object(new S3Object()

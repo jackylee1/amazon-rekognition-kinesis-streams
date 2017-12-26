@@ -6,6 +6,7 @@ import com.amazonaws.services.rekognition.AmazonRekognition;
 import com.amazonaws.services.rekognition.model.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import solid.humank.service.CollectionService;
@@ -16,6 +17,7 @@ import solid.humank.utils.DateTimeUtil;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@Disabled
 @Nested
 public class StreamProcessorTest {
 
@@ -44,8 +46,10 @@ public class StreamProcessorTest {
     }
 
 
+    @Disabled
     @Nested
     class CreateProcessor{
+        @Disabled
         @Test
         public void create_stream_processor_test(){
 
@@ -58,14 +62,16 @@ public class StreamProcessorTest {
         }
 
         @Nested
+        @Disabled
         class RetrieveProcessor{
 
             //list
 
             @Test
+            @Disabled
             public void list_stream_processors(){
-                AWSCredentials credentials=  AmazonClientUtil.generateCredentials();
-                AmazonRekognition rekognitionClient =  AmazonClientUtil.getAmazonRekognition(Regions.US_WEST_2,credentials);
+
+                AmazonRekognition rekognitionClient =  AmazonClientUtil.getAmazonRekognition();
                 ListStreamProcessorsResult listStreamProcessorsResult =
                         rekognitionClient.listStreamProcessors(new ListStreamProcessorsRequest().withMaxResults(100));
                 for (StreamProcessor streamProcessor : listStreamProcessorsResult.getStreamProcessors()) {
@@ -77,6 +83,7 @@ public class StreamProcessorTest {
             //start
 
             @Test
+            @Disabled
             public void start_stream_processor_test(){
 
                 RekognitionService rekognitionService = new RekognitionService();
@@ -88,9 +95,10 @@ public class StreamProcessorTest {
             //describe
 
             @Test
+            @Disabled
             public void describe_stream_processor_test(){
-                AWSCredentials credentials=  AmazonClientUtil.generateCredentials();
-                AmazonRekognition rekognitionClient =  AmazonClientUtil.getAmazonRekognition(Regions.US_WEST_2,credentials);
+
+                AmazonRekognition rekognitionClient =  AmazonClientUtil.getAmazonRekognition();
                 DescribeStreamProcessorResult describeStreamProcessorResult = rekognitionClient.describeStreamProcessor(new DescribeStreamProcessorRequest().withName(streamProcessorName));
 
                 logger.info("Arn - {}", describeStreamProcessorResult.getStreamProcessorArn());
@@ -106,22 +114,25 @@ public class StreamProcessorTest {
             }
 
             @Nested
+            @Disabled
             class StopProcessor{
                 @Test
                 public void stop_stream_rpocessor_test(){
-                    AWSCredentials credentials=  AmazonClientUtil.generateCredentials();
-                    AmazonRekognition rekognitionClient =  AmazonClientUtil.getAmazonRekognition(Regions.US_WEST_2,credentials);
+
+                    AmazonRekognition rekognitionClient =  AmazonClientUtil.getAmazonRekognition();
                     StopStreamProcessorResult stopStreamProcessorResult =
                             rekognitionClient.stopStreamProcessor(new StopStreamProcessorRequest().withName(streamProcessorName));
                     logger.info("{}", stopStreamProcessorResult.getSdkResponseMetadata().toString());
                 }
 
                 @Nested
+                @Disabled
                 class DeleteProcessor{
                     @Test
+                    @Disabled
                     public void delete_stream_processor_test(){
-                        AWSCredentials credentials=  AmazonClientUtil.generateCredentials();
-                        AmazonRekognition rekognitionClient =  AmazonClientUtil.getAmazonRekognition(Regions.US_WEST_2,credentials);
+
+                        AmazonRekognition rekognitionClient =  AmazonClientUtil.getAmazonRekognition();
                         DeleteStreamProcessorResult deleteStreamProcessorResult = rekognitionClient
                                 .deleteStreamProcessor(new DeleteStreamProcessorRequest().withName(streamProcessorName));
 
@@ -129,6 +140,7 @@ public class StreamProcessorTest {
                     }
 
                     @Nested
+                    @Disabled
                     class DeleteCollection{
 
                         public void delete_collection(){
