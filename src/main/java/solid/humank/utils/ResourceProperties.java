@@ -9,17 +9,18 @@ import java.util.Properties;
 public class ResourceProperties {
 
     private static Logger logger = LogManager.getLogger();
+    private static Properties properties;
+    static{
+        try {
+             properties = new Properties();
+            properties.load(ResourceProperties.class.getResourceAsStream("/Resource.properties"));
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+
+        }
+    }
 
     public static String getPropertyValue(String property){
-
-        Properties properties = new Properties();
-        try {
-            properties.load(ResourceProperties.class.getResourceAsStream("/resources/Resource.properties"));
-        } catch (IOException e) {
-
-            e.printStackTrace();
-        }
-
         return properties.getProperty(property);
     }
 

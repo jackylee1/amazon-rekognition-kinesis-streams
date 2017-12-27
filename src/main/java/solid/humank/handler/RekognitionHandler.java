@@ -14,6 +14,7 @@ import com.amazonaws.services.sns.model.PublishResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import solid.humank.service.RekognitionService;
+import solid.humank.utils.ResourceProperties;
 
 import static solid.humank.utils.S3BucketUtil.getBuddyName;
 import static solid.humank.utils.S3BucketUtil.getIndexBucket;
@@ -38,14 +39,17 @@ public class RekognitionHandler implements RequestHandler<S3Event, String> {
         logger.info("InComing Buddy image ObjectKey : {}", objectKey);
 
         RekognitionService rekognitionService = new RekognitionService();
-        String result = rekognitionService.compareWithIndexedFacesForIncomingBuddy(s3BucketName,objectKey,COLLECTION_ID);
+
+        String newCollection = ResourceProperties.getPropertyValue("collectionId");
+        String result = rekognitionService.compareWithIndexedFacesForIncomingBuddy(s3BucketName,objectKey,newCollection);
+        //String result = rekognitionService.compareWithIndexedFacesForIncomingBuddy(s3BucketName,objectKey,COLLECTION_ID);
         logger.info("detect result : {}", result);
 
         //把辨識結果丟進SNS
         AmazonSNS snsClient = AmazonSNSClientBuilder.defaultClient();
         PublishRequest publishRequest = new PublishRequest(FACE_DETECT_ARN, result);
         PublishResult publishResult = snsClient.publish(publishRequest);
-
+        logger.info("publishResult : {}",publishResult);
         return publishResult.toString();
     }
 }

@@ -18,23 +18,13 @@ public class RekognitionSearchTest {
     private static Logger logger = LogManager.getLogger();
 
     @Test
-    public void compare_with_indexed_faces_for_incoming_buddy() throws JsonProcessingException {
-        String fileName ="incomingbuddy.jpg";
-        RekognitionService rekognitionService = new RekognitionService();
-        String result = rekognitionService.compareWithIndexedFacesForIncomingBuddy(s3BucketName,fileName,collectionId);
-
-        logger.info(result);
-        assertTrue(StringUtils.isNotBlank(result));
-    }
-
-    @Test
     public void compare_with_indexed_faces_then_matched(){
         String fileName ="test-ivan-01.jpg";
         RekognitionService rekognitionService = new RekognitionService();
         String result = rekognitionService.compareWithIndexedFacesForIncomingBuddy(s3BucketName,fileName,collectionId);
 
         logger.info(result);
-        assertNotEquals("",result);
+        assertNotEquals("{ \"Result\":\"Not Matched\"}",result);
     }
 
     @Test
@@ -42,6 +32,6 @@ public class RekognitionSearchTest {
         String fileName ="test-01.jpg";
         RekognitionService rekognitionService = new RekognitionService();
         String result = rekognitionService.compareWithIndexedFacesForIncomingBuddy(s3BucketName,fileName,collectionId);
-        assertEquals("",result);
+        assertEquals("{ \"Result\":\"Not Matched\"}",result);
     }
 }

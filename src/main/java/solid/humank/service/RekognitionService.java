@@ -68,16 +68,21 @@ public class RekognitionService {
 
         logger.info("Faces matching largest face in image from" + fileName);
         List< FaceMatch > faceImageMatches = searchFacesByImageResult.getFaceMatches();
+
         logger.info("MatchResult : {}", searchFacesByImageResult);
         logger.info("check face is matched or not : {}", faceImageMatches.size());
 
-        for (FaceMatch face: faceImageMatches) {
-            try {
-                resultStringBuffer.append(objectMapper.writerWithDefaultPrettyPrinter()
-                        .writeValueAsString(face));
-            } catch (JsonProcessingException e) {
-                logger.error(e.getMessage());
+        if(faceImageMatches.size()>0){
+            for (FaceMatch face: faceImageMatches) {
+                try {
+                    resultStringBuffer.append(objectMapper.writerWithDefaultPrettyPrinter()
+                            .writeValueAsString(face));
+                } catch (JsonProcessingException e) {
+                    logger.error(e.getMessage());
+                }
             }
+        }else{
+            resultStringBuffer.append("{ \"Result\":\"Not Matched\"}");
         }
         return resultStringBuffer.toString();
     }
