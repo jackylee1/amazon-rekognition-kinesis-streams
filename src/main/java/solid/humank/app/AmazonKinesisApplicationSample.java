@@ -11,14 +11,19 @@ import com.amazonaws.services.kinesis.clientlibrary.interfaces.IRecordProcessorF
 import com.amazonaws.services.kinesis.clientlibrary.lib.worker.InitialPositionInStream;
 import com.amazonaws.services.kinesis.clientlibrary.lib.worker.KinesisClientLibConfiguration;
 import com.amazonaws.services.kinesis.clientlibrary.lib.worker.Worker;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import solid.humank.service.DetectedDataProcessorFactory;
+import solid.humank.utils.ResourceProperties;
 
 import java.net.InetAddress;
 import java.util.UUID;
 
 public class AmazonKinesisApplicationSample {
 
-    public static final String SAMPLE_APPLICATION_STREAM_NAME = "MyKinesisDataStream";
+    private static final Logger logger = LogManager.getLogger();
+
+    public static final String SAMPLE_APPLICATION_STREAM_NAME = ResourceProperties.getPropertyValue("dataStreamName");
 
     private static final String SAMPLE_APPLICATION_NAME = "SampleKinesisApplication";
 
@@ -58,11 +63,12 @@ public class AmazonKinesisApplicationSample {
                         credentialsProvider,
                         workerId);
         kinesisClientLibConfiguration.withInitialPositionInStream(SAMPLE_APPLICATION_INITIAL_POSITION_IN_STREAM);
+        kinesisClientLibConfiguration.withKinesisEndpoint(ResourceProperties.getPropertyValue("kinesisDataStreamEndPoint"));
 
         IRecordProcessorFactory recordProcessorFactory = new DetectedDataProcessorFactory();
         Worker worker = new Worker(recordProcessorFactory, kinesisClientLibConfiguration);
 
-        System.out.printf("Running %s to process stream %s as worker %s...\n",
+        logger.info("Running %s to process stream %s as worker %s...\n",
                 SAMPLE_APPLICATION_NAME,
                 SAMPLE_APPLICATION_STREAM_NAME,
                 workerId);
@@ -86,7 +92,7 @@ public class AmazonKinesisApplicationSample {
                 .withRegion("us-west-2")
                 .build();
 
-        System.out.printf("Deleting the Amazon Kinesis stream used by the sample. Stream Name = %s.\n",
+        logger.info("Deleting the Amazon Kinesis stream used by the sample. Stream Name = %s.\n",
                 SAMPLE_APPLICATION_STREAM_NAME);
         try {
             kinesis.deleteStream(SAMPLE_APPLICATION_STREAM_NAME);
@@ -99,7 +105,7 @@ public class AmazonKinesisApplicationSample {
                 .withCredentials(credentialsProvider)
                 .withRegion("us-west-2")
                 .build();
-        System.out.printf("Deleting the Amazon DynamoDB table used by the Amazon Kinesis Client Library. Table Name = %s.\n",
+        logger.info("Deleting the Amazon DynamoDB table used by the Amazon Kinesis Client Library. Table Name = %s.\n",
                 SAMPLE_APPLICATION_NAME);
         try {
             dynamoDB.deleteTable(SAMPLE_APPLICATION_NAME);

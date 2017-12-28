@@ -40,7 +40,7 @@ public class RekognitionHandler implements RequestHandler<S3Event, String> {
         logger.info("detect result : {}", result);
 
         //把辨識結果丟進SNS
-        String snsArn = ResourceProperties.getPropertyValue("sns-arn");
+        String snsArn = ResourceProperties.getPropertyValue("snsArn");
 
         AmazonSNS snsClient = AmazonSNSClientBuilder.defaultClient();
         PublishRequest publishRequest = new PublishRequest(snsArn, result);

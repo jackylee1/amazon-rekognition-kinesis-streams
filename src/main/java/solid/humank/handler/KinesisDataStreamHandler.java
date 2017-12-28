@@ -13,6 +13,7 @@ public class KinesisDataStreamHandler implements RequestHandler<KinesisEvent, Vo
 
 
 
+
         for(KinesisEvent.KinesisEventRecord rec : kinesisEvent.getRecords()) {
             System.out.println(new String(rec.getKinesis().getData().array()));
         }
