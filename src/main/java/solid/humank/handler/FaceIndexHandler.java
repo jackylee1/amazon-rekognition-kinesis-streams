@@ -35,8 +35,7 @@ public class FaceIndexHandler implements RequestHandler<S3Event, String> {
         String indexBucket = getIndexBucket(s3Event);
         String objectKey = getObjectKey(s3Event);
         String incomingBuddyName =  getBuddyName(indexBucket, objectKey, s3client);
-        //String collectionId = ResourceProperties.getPropertyValue("collectionId");
-        String collectionId = "myCollection";
+        String collectionId = ResourceProperties.getPropertyValue("collectionId");
         logger.info("collectionId from resource :  {}", collectionId);
         context.getLogger().log("the collectionId from resource :" + collectionId);
 

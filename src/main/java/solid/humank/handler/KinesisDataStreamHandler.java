@@ -10,6 +10,9 @@ import com.amazonaws.services.lambda.runtime.events.KinesisEvent;
 public class KinesisDataStreamHandler implements RequestHandler<KinesisEvent, Void> {
     @Override
     public Void handleRequest(KinesisEvent kinesisEvent, Context context) {
+
+
+
         for(KinesisEvent.KinesisEventRecord rec : kinesisEvent.getRecords()) {
             System.out.println(new String(rec.getKinesis().getData().array()));
         }

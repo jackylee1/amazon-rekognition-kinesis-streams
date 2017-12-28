@@ -1,13 +1,10 @@
 package solid.humank.service;
 
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.regions.Regions;
 import com.amazonaws.services.rekognition.AmazonRekognition;
 import com.amazonaws.services.rekognition.model.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import solid.humank.utils.AmazonClientUtil;
-import solid.humank.utils.ResourceProperties;
 
 import java.util.List;
 
