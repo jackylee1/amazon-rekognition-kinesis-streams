@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import solid.humank.service.CollectionService;
 import solid.humank.utils.DateTimeUtil;
+import solid.humank.utils.ResourceProperties;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -28,16 +29,16 @@ public class CollectionServiceTest {
     public void create_collection_on_us_west_2_region(){
 
         CollectionService cc = new CollectionService();
-        String creationResult = cc.createCollectionAt(Regions.US_WEST_2,collectionId);
+        String creationResult = cc.createCollectionAt(Regions.fromName(ResourceProperties.getPropertyValue("region")),collectionId);
         logger.info("The created collection id is : {}", collectionId);
         assertEquals("200",creationResult);
 
     }
 
-    @AfterEach
+    //@AfterEach
     public void delete_collection_on_us_west_2_region(){
         CollectionService cc = new CollectionService();
-        String deletionResult = cc.deleteCollection(Regions.US_WEST_2,collectionId);
+        String deletionResult = cc.deleteCollection(Regions.fromName(ResourceProperties.getPropertyValue("region")),collectionId);
         assertEquals("200",deletionResult);
     }
 }

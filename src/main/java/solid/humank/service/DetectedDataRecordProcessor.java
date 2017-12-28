@@ -7,9 +7,13 @@ import com.amazonaws.services.kinesis.clientlibrary.interfaces.IRecordProcessor;
 import com.amazonaws.services.kinesis.clientlibrary.interfaces.IRecordProcessorCheckpointer;
 import com.amazonaws.services.kinesis.clientlibrary.lib.worker.ShutdownReason;
 import com.amazonaws.services.kinesis.model.Record;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
@@ -92,21 +96,24 @@ public class DetectedDataRecordProcessor implements IRecordProcessor {
      */
     private void processSingleRecord(Record record) {
         // TODO Add your own record processing logic here
-
         String data = null;
+
         try {
             // For this app, we interpret the payload as UTF-8 chars.
             data = decoder.decode(record.getData()).toString();
-            // Assume this record came from AmazonKinesisSample and log its age.
-            long recordCreateTime = new Long(data.substring("testData-".length()));
-            long ageOfRecordInMillis = System.currentTimeMillis() - recordCreateTime;
+            logger.info("Detect Result : {}", data);
 
-            logger.info(record.getSequenceNumber() + ", " + record.getPartitionKey() + ", " + data + ", Created "
-                    + ageOfRecordInMillis + " milliseconds ago.");
-        } catch (NumberFormatException e) {
-            logger.info("Record does not match sample record format. Ignoring record with data; " + data);
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = mapper.readTree(data);
+            JsonNode matchedFaces = root.path("FaceSearchResponse").findPath("MatchedFaces");
+
+            logger.info("matchedFaces : {}",matchedFaces.toString());
         } catch (CharacterCodingException e) {
             logger.error("Malformed data: " + data, e);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

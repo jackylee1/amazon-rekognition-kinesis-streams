@@ -11,7 +11,6 @@ public class CreateStreamProcessor {
     private static final Logger logger = LogManager.getLogger();
     public static void main(String[] args){
 
-
         String streamProcessorName = ResourceProperties.getPropertyValue("streamProcessorName");
         String kinesisVideoStreamArn = ResourceProperties.getPropertyValue("videoStreamArn");
         String dataStreamArn = ResourceProperties.getPropertyValue("dataStreamArn");

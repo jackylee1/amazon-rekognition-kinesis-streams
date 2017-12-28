@@ -1,0 +1,64 @@
+{
+  "InputInformation": {
+    "KinesisVideo": {
+      "StreamArn": "arn:aws:kinesisvideo:us-west-2:584518143473:stream/myDemoVideoStream/1514474183623",
+      "FragmentNumber": "91343852333184854440236179499425357012192381701",
+      "ServerTimestamp": 1.51447654268E9,
+      "ProducerTimestamp": 1.514476540795E9,
+      "FrameOffsetInSeconds": 0.0
+    }
+  },
+  "StreamProcessorInformation": {
+    "Status": "RUNNING"
+  },
+  "FaceSearchResponse": [
+    {
+      "DetectedFace": {
+        "BoundingBox": {
+          "Height": 0.7638889,
+          "Width": 0.4296875,
+          "Left": 0.4265625,
+          "Top": -0.06666667
+        },
+        "Confidence": 99.958084,
+        "Landmarks": [
+          {
+            "X": 0.59380096,
+            "Y": 0.19286713,
+            "Type": "eyeLeft"
+          },
+          {
+            "X": 0.71759623,
+            "Y": 0.20158546,
+            "Type": "eyeRight"
+          },
+          {
+            "X": 0.6902272,
+            "Y": 0.28199735,
+            "Type": "nose"
+          },
+          {
+            "X": 0.6243566,
+            "Y": 0.43837258,
+            "Type": "mouthLeft"
+          },
+          {
+            "X": 0.70930564,
+            "Y": 0.42977205,
+            "Type": "mouthRight"
+          }
+        ],
+        "Pose": {
+          "Pitch": -2.9396436,
+          "Roll": 0.99219453,
+          "Yaw": 14.551514
+        },
+        "Quality": {
+          "Brightness": 43.346573,
+          "Sharpness": 99.99453
+        }
+      },
+      "MatchedFaces": "1"
+    }
+  ]
+}

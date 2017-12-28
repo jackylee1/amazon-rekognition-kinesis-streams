@@ -53,7 +53,4 @@ public class FaceIndexHandler implements RequestHandler<S3Event, String> {
 
         return putOutCome;
     }
-
-
-
 }
