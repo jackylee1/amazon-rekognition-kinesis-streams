@@ -19,7 +19,7 @@ import solid.humank.utils.ResourceProperties;
 import java.net.InetAddress;
 import java.util.UUID;
 
-public class AmazonKinesisApplicationSample {
+public class FaceRekognition {
 
     private static final Logger logger = LogManager.getLogger();
 

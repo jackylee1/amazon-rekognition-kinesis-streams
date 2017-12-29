@@ -66,6 +66,8 @@ public class RekognitionService {
         SearchFacesByImageResult searchFacesByImageResult =
                 amazonRekognition.searchFacesByImage(searchFacesByImageRequest);
 
+        logger.info("searchFacesByImageResult : {}",searchFacesByImageResult);
+
         logger.info("Faces matching largest face in image from" + fileName);
         List< FaceMatch > faceImageMatches = searchFacesByImageResult.getFaceMatches();
 

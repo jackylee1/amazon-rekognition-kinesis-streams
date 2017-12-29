@@ -21,8 +21,6 @@ import static solid.humank.utils.S3BucketUtil.getBuddyName;
 import static solid.humank.utils.S3BucketUtil.getIndexBucket;
 import static solid.humank.utils.S3BucketUtil.getObjectKey;
 
-//TODO : 透過讀取config找到 bucketname --> rekognition-index , 把上傳進來的檔案做index, 並且從tag找出人名, 寫入dynamodb
-
 public class FaceIndexHandler implements RequestHandler<S3Event, String> {
 
     private static final Logger logger = LogManager.getLogger();

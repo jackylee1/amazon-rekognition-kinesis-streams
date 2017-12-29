@@ -7,12 +7,19 @@ import com.amazonaws.services.kinesis.clientlibrary.interfaces.IRecordProcessor;
 import com.amazonaws.services.kinesis.clientlibrary.interfaces.IRecordProcessorCheckpointer;
 import com.amazonaws.services.kinesis.clientlibrary.lib.worker.ShutdownReason;
 import com.amazonaws.services.kinesis.model.Record;
+import com.amazonaws.services.sns.AmazonSNS;
+import com.amazonaws.services.sns.AmazonSNSClientBuilder;
+import com.amazonaws.services.sns.model.PublishRequest;
+import com.amazonaws.services.sns.model.PublishResult;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import solid.humank.persistence.FaceIndexPersistence;
+import solid.humank.utils.ResourceProperties;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
@@ -64,11 +71,7 @@ public class DetectedDataRecordProcessor implements IRecordProcessor {
             boolean processedSuccessfully = false;
             for (int i = 0; i < NUM_RETRIES; i++) {
                 try {
-                    //
-                    // Logic to process record goes here.
-                    //
                     processSingleRecord(record);
-
                     processedSuccessfully = true;
                     break;
                 } catch (Throwable t) {
@@ -95,8 +98,10 @@ public class DetectedDataRecordProcessor implements IRecordProcessor {
      * @param record The record to be processed.
      */
     private void processSingleRecord(Record record) {
-        // TODO Add your own record processing logic here
+
         String data = null;
+        String snsArn = ResourceProperties.getPropertyValue("snsArn");
+        String result=null;
 
         try {
             // For this app, we interpret the payload as UTF-8 chars.
@@ -108,6 +113,26 @@ public class DetectedDataRecordProcessor implements IRecordProcessor {
             JsonNode matchedFaces = root.path("FaceSearchResponse").findPath("MatchedFaces");
 
             logger.info("matchedFaces : {}",matchedFaces.toString());
+            if(matchedFaces==null){
+                result = "{\n" +
+                        "  \"Name\" : \"Not Matched\"\n" +
+                        "}";
+            }else{
+
+                JsonNode detail = matchedFaces.get(0);
+                String faceId = detail.path("Face").findPath("FaceId").textValue();
+
+                String name = new FaceIndexPersistence().findBuddyForFaceId(faceId);
+                result = "{\n" +
+                        "  \"Name\" : " + name + "\n" +
+                        "}";
+            }
+
+            AmazonSNS snsClient = AmazonSNSClientBuilder.defaultClient();
+            PublishRequest publishRequest = new PublishRequest(snsArn, result);
+            PublishResult publishResult = snsClient.publish(publishRequest);
+            logger.info("publishResult : {}",publishResult);
+
         } catch (CharacterCodingException e) {
             logger.error("Malformed data: " + data, e);
         } catch (JsonProcessingException e) {

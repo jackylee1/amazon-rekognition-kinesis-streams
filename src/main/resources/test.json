@@ -1,0 +1,80 @@
+{
+  "InputInformation": {
+    "KinesisVideo": {
+      "StreamArn": "arn:aws:kinesisvideo:us-west-2:584518143473:stream/myDemoVideoStream/1514474183623",
+      "FragmentNumber": "91343852333363350464344257553389350256110796287",
+      "ServerTimestamp": 1.514512509666E9,
+      "ProducerTimestamp": 1.514512508431E9,
+      "FrameOffsetInSeconds": 0.0
+    }
+  },
+  "StreamProcessorInformation": {
+    "Status": "RUNNING"
+  },
+  "FaceSearchResponse": [
+    {
+      "DetectedFace": {
+        "BoundingBox": {
+          "Height": 0.31944445,
+          "Width": 0.18046875,
+          "Left": 0.4484375,
+          "Top": 0.25555557
+        },
+        "Confidence": 99.99199,
+        "Landmarks": [
+          {
+            "X": 0.5134555,
+            "Y": 0.37227422,
+            "Type": "eyeLeft"
+          },
+          {
+            "X": 0.5730344,
+            "Y": 0.38269398,
+            "Type": "eyeRight"
+          },
+          {
+            "X": 0.55972713,
+            "Y": 0.4366241,
+            "Type": "nose"
+          },
+          {
+            "X": 0.5147065,
+            "Y": 0.49111134,
+            "Type": "mouthLeft"
+          },
+          {
+            "X": 0.5706894,
+            "Y": 0.49916843,
+            "Type": "mouthRight"
+          }
+        ],
+        "Pose": {
+          "Pitch": 1.1949792,
+          "Roll": 3.81565,
+          "Yaw": 23.07207
+        },
+        "Quality": {
+          "Brightness": 31.913412,
+          "Sharpness": 99.98488
+        }
+      },
+      "MatchedFaces": [
+        {
+          "Similarity": 93.875114,
+          "Face": {
+            "BoundingBox": {
+              "Height": 0.472936,
+              "Width": 0.630866,
+              "Left": 0.154332,
+              "Top": 0.126522
+            },
+            "FaceId": "2ec07104-1469-4002-aca6-e2b571b38da7",
+            "Confidence": 99.9945,
+            "ImageId": "dd7e522d-8130-57d5-94f3-431f904b07fb",
+            "ExternalImageId": "candy-001.jpg"
+          }
+        }
+      ]
+    }
+  ]
+}

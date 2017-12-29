@@ -35,7 +35,7 @@ public class CollectionServiceTest {
 
     }
 
-    //@AfterEach
+    @AfterEach
     public void delete_collection_on_us_west_2_region(){
         CollectionService cc = new CollectionService();
         String deletionResult = cc.deleteCollection(Regions.fromName(ResourceProperties.getPropertyValue("region")),collectionId);
