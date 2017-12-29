@@ -124,7 +124,7 @@ public class DetectedDataRecordProcessor implements IRecordProcessor {
 
                 String name = new FaceIndexPersistence().findBuddyForFaceId(faceId);
                 result = "{\n" +
-                        "  \"Name\" : " + name + "\n" +
+                        "  \"Name\" : " + "\"" + name +"\"" + "\n" +
                         "}";
             }
 
