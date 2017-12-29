@@ -51,7 +51,7 @@ public class FaceIndexPersistence {
 
         List<FaceIndex> faceIndices = mapper.scan(FaceIndex.class, scanExpression);
 
-        if(faceIndices!=null){
+        if(faceIndices.size()>0){
             name = faceIndices.get(0).getName();
         }
 

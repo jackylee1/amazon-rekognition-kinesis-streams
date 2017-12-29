@@ -32,6 +32,6 @@ public class RekognitionSearchTest {
         String fileName ="kim-001.png";
         RekognitionService rekognitionService = new RekognitionService();
         String result = rekognitionService.compareWithIndexedFacesForIncomingBuddy(s3BucketName,fileName,collectionId);
-        assertEquals("{ \"Result\":\"Not Matched\"}",result);
+        assertNotEquals("{ \"Result\":\"Not Matched\"}",result);
     }
 }
