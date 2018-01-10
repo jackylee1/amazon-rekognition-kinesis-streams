@@ -35,6 +35,7 @@ public class RekognitionService {
                 new CreateStreamProcessorRequest().withInput(streamProcessorInput).withOutput(streamProcessorOutput)
                         .withSettings(streamProcessorSettings).withRoleArn(roleArn).withName(streamProcessorName));
 
+        logger.info("createStreamProcessorResult : {}",createStreamProcessorResult);
         return createStreamProcessorResult.getStreamProcessorArn();
     }
 

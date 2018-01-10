@@ -3,6 +3,7 @@ package solid.humank.rekognition;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.util.StringUtils;
 import solid.humank.service.RekognitionService;
@@ -17,6 +18,7 @@ public class RekognitionSearchTest {
 
     private static Logger logger = LogManager.getLogger();
 
+    @Disabled
     @Test
     public void compare_with_indexed_faces_ivan_not_matched(){
         String fileName ="test-ivan-01.jpg";
@@ -27,6 +29,7 @@ public class RekognitionSearchTest {
         assertEquals("{ \"Result\":\"Not Matched\"}",result);
     }
 
+    @Disabled
     @Test
     public void compare_with_indexed_faces_then_matched() throws JsonProcessingException {
         String fileName ="kim-001.png";

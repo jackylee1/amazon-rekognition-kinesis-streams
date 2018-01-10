@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import solid.humank.service.CollectionService;
 import solid.humank.utils.DateTimeUtil;
@@ -12,6 +13,7 @@ import solid.humank.utils.ResourceProperties;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Disabled
 public class CollectionServiceTest {
 
     String currentDateTime;
@@ -19,7 +21,7 @@ public class CollectionServiceTest {
 
     private static final Logger logger = LogManager.getLogger();
 
-    @BeforeEach
+    //@BeforeEach
     public void init(){
         currentDateTime = DateTimeUtil.getCurrentDateTimeInYMDHMS();
         collectionId = collectionId.concat(currentDateTime);
@@ -35,7 +37,7 @@ public class CollectionServiceTest {
 
     }
 
-    @AfterEach
+    //@AfterEach
     public void delete_collection_on_us_west_2_region(){
         CollectionService cc = new CollectionService();
         String deletionResult = cc.deleteCollection(Regions.fromName(ResourceProperties.getPropertyValue("region")),collectionId);

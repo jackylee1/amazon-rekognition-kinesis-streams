@@ -1,5 +1,7 @@
 package solid.humank.service;
 
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.kinesis.clientlibrary.exceptions.InvalidStateException;
 import com.amazonaws.services.kinesis.clientlibrary.exceptions.ShutdownException;
 import com.amazonaws.services.kinesis.clientlibrary.exceptions.ThrottlingException;
@@ -8,6 +10,7 @@ import com.amazonaws.services.kinesis.clientlibrary.interfaces.IRecordProcessorC
 import com.amazonaws.services.kinesis.clientlibrary.lib.worker.ShutdownReason;
 import com.amazonaws.services.kinesis.model.Record;
 import com.amazonaws.services.sns.AmazonSNS;
+import com.amazonaws.services.sns.AmazonSNSClient;
 import com.amazonaws.services.sns.AmazonSNSClientBuilder;
 import com.amazonaws.services.sns.model.PublishRequest;
 import com.amazonaws.services.sns.model.PublishResult;
@@ -108,30 +111,35 @@ public class DetectedDataRecordProcessor implements IRecordProcessor {
             data = decoder.decode(record.getData()).toString();
             logger.info("Detect Result : {}", data);
 
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode root = mapper.readTree(data);
-            JsonNode matchedFaces = root.path("FaceSearchResponse").findPath("MatchedFaces");
+            if(data!=null){
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode root = mapper.readTree(data);
+                JsonNode matchedFaces = root.path("FaceSearchResponse").findPath("MatchedFaces");
+                logger.info("matchedFaces : {}",matchedFaces.toString());
 
-            logger.info("matchedFaces : {}",matchedFaces.toString());
-            if(matchedFaces==null){
-                result = "{\n" +
-                        "  \"Name\" : \"Not Matched\"\n" +
-                        "}";
-            }else{
+                if(matchedFaces!= null){
+                    for(int i =0; i<matchedFaces.size();i++){
+                        JsonNode detail = matchedFaces.get(i);
+                        String faceId = detail.path("Face").findPath("FaceId").textValue();
+                        logger.info("FaceId is : {}", faceId);
 
-                JsonNode detail = matchedFaces.get(0);
-                String faceId = detail.path("Face").findPath("FaceId").textValue();
+                        String name = new FaceIndexPersistence().findBuddyForFaceId(faceId);
+                        logger.info("name is : {}",name);
+                        result = "{\n" +
+                                "  \"Name\" : " + "\"" + name +"\"" + "\n" +
+                                "}";
+                        logger.info("result is : {}", result);
+                        AmazonSNS snsClient = AmazonSNSClient.builder()
+                                .withRegion("ap-northeast-1")
+                                .build();
+                        PublishRequest publishRequest = new PublishRequest(snsArn, result);
 
-                String name = new FaceIndexPersistence().findBuddyForFaceId(faceId);
-                result = "{\n" +
-                        "  \"Name\" : " + "\"" + name +"\"" + "\n" +
-                        "}";
+                        logger.info("snsArn is : {}",snsArn);
+                        PublishResult publishResult = snsClient.publish(publishRequest);
+                        logger.info("publishResult : {}",publishResult);
+                    }
+                }
             }
-
-            AmazonSNS snsClient = AmazonSNSClientBuilder.defaultClient();
-            PublishRequest publishRequest = new PublishRequest(snsArn, result);
-            PublishResult publishResult = snsClient.publish(publishRequest);
-            logger.info("publishResult : {}",publishResult);
 
         } catch (CharacterCodingException e) {
             logger.error("Malformed data: " + data, e);

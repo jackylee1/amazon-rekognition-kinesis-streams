@@ -17,6 +17,13 @@ public class CreateStreamProcessor {
         String collectionId = ResourceProperties.getPropertyValue("collectionId");
         String roleArn = ResourceProperties.getPropertyValue("roleArn");
 
+        logger.info("streamProcessorName :{}",streamProcessorName);
+        logger.info("kinesisVideoStreamArn :{}",kinesisVideoStreamArn);
+        logger.info("dataStreamArn :{}",dataStreamArn);
+        logger.info("collectionId :{}",collectionId);
+        logger.info("roleArn :{}",roleArn);
+
+
         RekognitionService rekognitionService = new RekognitionService();
         String createdProcessorArn =
                 rekognitionService.createVideoStreamProcessor(kinesisVideoStreamArn, dataStreamArn, collectionId, matchThreshold, roleArn, streamProcessorName);

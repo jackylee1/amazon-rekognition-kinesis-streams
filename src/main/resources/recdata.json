@@ -1,0 +1,95 @@
+{
+  "InputInformation": {
+    "KinesisVideo": {
+      "StreamArn": "arn:aws:kinesisvideo:us-west-2:584518143473:stream/boothDemo/1515147770749",
+      "FragmentNumber": "91343852335331492005765640940174541334404827021",
+      "ServerTimestamp": 1515583037.921,
+      "ProducerTimestamp": 1515583034.242,
+      "FrameOffsetInSeconds": 1
+    }
+  },
+  "StreamProcessorInformation": {
+    "Status": "RUNNING"
+  },
+  "FaceSearchResponse": [
+    {
+      "DetectedFace": {
+        "BoundingBox": {
+          "Height": 0.50972223,
+          "Width": 0.28671876,
+          "Left": 0.35546875,
+          "Top": 0.041666668
+        },
+        "Confidence": 99.99241,
+        "Landmarks": [
+          {
+            "X": 0.44934696,
+            "Y": 0.2572891,
+            "Type": "eyeLeft"
+          },
+          {
+            "X": 0.54477966,
+            "Y": 0.24529302,
+            "Type": "eyeRight"
+          },
+          {
+            "X": 0.501619,
+            "Y": 0.3559828,
+            "Type": "nose"
+          },
+          {
+            "X": 0.46820992,
+            "Y": 0.44834128,
+            "Type": "mouthLeft"
+          },
+          {
+            "X": 0.5358137,
+            "Y": 0.43629205,
+            "Type": "mouthRight"
+          }
+        ],
+        "Pose": {
+          "Pitch": 1.7439088,
+          "Roll": -4.6119666,
+          "Yaw": 2.016688
+        },
+        "Quality": {
+          "Brightness": 42.405552,
+          "Sharpness": 99.99881
+        }
+      },
+      "MatchedFaces": [
+        {
+          "Similarity": 98.83173,
+          "Face": {
+            "BoundingBox": {
+              "Height": 0.46944,
+              "Width": 0.708974,
+              "Left": 0.121795,
+              "Top": 0.173175
+            },
+            "FaceId": "d029476f-ba9a-4752-994e-b835cda61792",
+            "Confidence": 99.9985,
+            "ImageId": "25bbbb91-9c38-5f91-95ad-9d8521c87f2b",
+            "ExternalImageId": "kim-002.png"
+          }
+        },
+        {
+          "Similarity": 98.83173,
+          "Face": {
+            "BoundingBox": {
+              "Height": 0.46944,
+              "Width": 0.708974,
+              "Left": 0.121795,
+              "Top": 0.173175
+            },
+            "FaceId": "005f37f0-9243-4f64-80a3-31f22256b387",
+            "Confidence": 99.9985,
+            "ImageId": "da9e431f-9a93-5476-883f-85abae7ba482",
+            "ExternalImageId": "kim-001.png"
+          }
+        }
+      ]
+    }
+  ]
+}
